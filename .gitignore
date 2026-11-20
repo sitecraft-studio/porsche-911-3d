@@ -1,0 +1,7 @@
+_shots/
+_tools/
+_probe/
+node_modules/
+.DS_Store
+Thumbs.db
+desktop.ini

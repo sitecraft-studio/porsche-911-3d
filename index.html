@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>911 — Shape of Time</title>
+<meta name="description" content="Кинематографичный 3D-трибьют Porsche 911: процедурная модель, живой свет и скролл-хореография. Собрано вручную на WebGL.">
+<meta name="theme-color" content="#05060a">
+<meta property="og:title" content="911 — Shape of Time">
+<meta property="og:description" content="Живой 3D-трибьют Porsche 911. Семь поколений. Один силуэт.">
+<meta property="og:type" content="website">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%2305060a'/%3E%3Ctext x='32' y='44' font-family='Arial Black,Arial' font-size='28' font-weight='900' fill='%23d5001c' text-anchor='middle'%3E911%3C/text%3E%3C/svg%3E">
+<link rel="preload" href="fonts/anton-400.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="fonts/inter-var.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+
+<div class="grain" aria-hidden="true"></div>
+<div class="vignette" aria-hidden="true"></div>
+<div id="cursor-dot" class="cursor-dot" aria-hidden="true"></div>
+<div id="cursor-ring" class="cursor-ring" aria-hidden="true"></div>
+<div id="js-errors" class="js-errors" role="status"></div>
+
+<!-- loader -->
+<div class="loader" id="loader">
+  <div class="loader__inner">
+    <div class="loader__brand">911</div>
+    <div class="loader__row">
+      <span class="loader__cap">Shape&nbsp;of&nbsp;time</span>
+      <span class="loader__pct"><span id="loader-pct">0</span>%</span>
+    </div>
+    <div class="loader__track"><div class="loader__bar" id="loader-bar"></div></div>
+  </div>
+</div>
+
+<canvas id="scene" aria-label="Трёхмерная модель Porsche 911" role="img"></canvas>
+
+<!-- chrome -->
+<div class="progress" aria-hidden="true"><div class="progress__bar" id="progress-bar"></div></div>
+
+<header class="topbar">
+  <a class="brand" href="#hero" aria-label="911 — в начало">
+    <span class="brand__mark">911</span>
+    <span class="brand__sub">Shape&nbsp;of&nbsp;time</span>
+  </a>
+  <nav class="nav" aria-label="Разделы">
+    <a href="#shape">Силуэт</a>
+    <a href="#numbers">Цифры</a>
+    <a href="#paint">Цвет</a>
+    <a href="#line">История</a>
+  </nav>
+  <a class="topbar__cta" href="https://github.com/sitecraft-studio/porsche-911-3d" target="_blank" rel="noopener">
+    <span>GitHub</span><span class="arrow">↗</span>
+  </a>
+</header>
+
+<div class="hud hud--left" aria-hidden="true">
+  <span id="hud-index">01</span><i></i><span id="hud-name">Форма</span>
+</div>
+<div class="hud hud--right" aria-hidden="true">992 / 2026</div>
+
+<main>
+
+  <!-- 01 hero -->
+  <section class="hero" id="hero" data-view="hero" data-index="01" data-title="Форма">
+    <div class="hero__inner container">
+      <p class="eyebrow reveal"><span class="eyebrow__dot"></span>Неофициальный трибьют · с 1963</p>
+
+      <h1 class="hero__title">
+        <span class="hero__number" data-split>911</span>
+        <span class="hero__word">Shape <em>of</em> time</span>
+      </h1>
+
+      <p class="hero__lead reveal">Семь поколений. Один силуэт.<br>Прокрутите — и машина оживёт.</p>
+
+      <ul class="hero__keys reveal">
+        <li><span>01</span>Задний привод</li>
+        <li><span>02</span>Оппозитный 6</li>
+        <li><span>03</span>Мотор сзади</li>
+      </ul>
+    </div>
+    <a class="scroll-cue" href="#shape"><span>Скролл</span><i></i></a>
+  </section>
+
+  <div class="marquee" aria-hidden="true">
+    <div class="marquee__track">
+      <span>Est. 1963</span><i></i><span>Flat-six</span><i></i><span>Rear engine</span><i></i><span>Fastback</span><i></i><span>Ducktail</span><i></i><span>Wide haunches</span><i></i>
+      <span>Est. 1963</span><i></i><span>Flat-six</span><i></i><span>Rear engine</span><i></i><span>Fastback</span><i></i><span>Ducktail</span><i></i><span>Wide haunches</span><i></i>
+    </div>
+  </div>
+
+  <!-- 02 shape (pinned) -->
+  <section class="shape" id="shape" data-view="shape" data-index="02" data-title="Силуэт">
+    <div class="shape__sticky">
+      <div class="container shape__grid">
+        <div class="shape__text">
+          <p class="sec-label reveal">01 — Силуэт</p>
+          <h2 class="h2 reveal">Одна линия<span>на все времена</span></h2>
+          <p class="lead reveal">За шестьдесят лет изменилось всё: материалы, турбины, электроника. Не изменилась только линия крыши — её узнают по одному кадру.</p>
+          <ul class="tags reveal">
+            <li>Fastback</li>
+            <li>Wide haunches</li>
+            <li>Ducktail</li>
+            <li>Flat-six</li>
+          </ul>
+        </div>
+      </div>
+      <div class="shape__orbit" aria-hidden="true">
+        <span class="shape__orbit-dot"></span>
+        <span>Орбита · 180°</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- 03 numbers -->
+  <section class="numbers" id="numbers" data-view="numbers" data-index="03" data-title="Цифры">
+    <div class="container">
+      <p class="sec-label reveal">02 — Цифры</p>
+      <h2 class="h2 reveal">Паспорт<span>характера</span></h2>
+      <div class="stats">
+        <div class="stat reveal">
+          <span class="stat__num"><b data-count="2.7" data-decimals="1">0</b><i>с</i></span>
+          <span class="stat__cap">0–100 км/ч</span>
+        </div>
+        <div class="stat reveal">
+          <span class="stat__num"><b data-count="330">0</b><i>км/ч</i></span>
+          <span class="stat__cap">Максимальная скорость</span>
+        </div>
+        <div class="stat reveal">
+          <span class="stat__num"><b data-count="650">0</b><i>л.с.</i></span>
+          <span class="stat__cap">Мощность</span>
+        </div>
+        <div class="stat reveal">
+          <span class="stat__num"><b data-count="6">0</b><i>цил.</i></span>
+          <span class="stat__cap">Оппозитный, сзади</span>
+        </div>
+      </div>
+      <p class="fine reveal">911 Turbo S, поколение 992. Данные производителя.</p>
+    </div>
+  </section>
+
+  <!-- 04 paint -->
+  <section class="paint" id="paint" data-view="paint" data-index="04" data-title="Цвет">
+    <div class="container paint__inner">
+      <div class="paint__head">
+        <p class="sec-label reveal">03 — Цвет</p>
+        <h2 class="h2 reveal">Цвет — это<span>тоже характер</span></h2>
+        <p class="lead reveal">Выберите оттенок — машина перекрасится в реальном времени.</p>
+      </div>
+
+      <div class="paint__panel reveal">
+        <div class="paint__now">
+          <span class="paint__cap">Сейчас</span>
+          <span class="paint__name" id="paint-name">Guards Red</span>
+        </div>
+        <div class="swatches" role="group" aria-label="Цвет кузова">
+          <button class="swatch is-active" data-hex="D5001C" data-name="Guards Red" data-accent="#d5001c" style="--c:#d5001c" aria-label="Guards Red"></button>
+          <button class="swatch" data-hex="C4C7CA" data-name="GT Silver" data-accent="#c4c7ca" style="--c:#c4c7ca" aria-label="GT Silver"></button>
+          <button class="swatch" data-hex="0C0D0E" data-name="Jet Black" data-accent="#7b8290" style="--c:#0c0d0e" aria-label="Jet Black"></button>
+          <button class="swatch" data-hex="F0C000" data-name="Racing Yellow" data-accent="#f0c000" style="--c:#f0c000" aria-label="Racing Yellow"></button>
+          <button class="swatch" data-hex="1B5B8F" data-name="Shark Blue" data-accent="#1b5b8f" style="--c:#1b5b8f" aria-label="Shark Blue"></button>
+          <button class="swatch" data-hex="CFCBC2" data-name="Chalk" data-accent="#cfcbc2" style="--c:#cfcbc2" aria-label="Chalk"></button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 05 history -->
+  <section class="line" id="line" data-view="line" data-index="05" data-title="История">
+    <div class="container">
+      <p class="sec-label reveal">04 — История</p>
+      <h2 class="h2 reveal">Восемь<span>поворотов</span></h2>
+      <p class="lead lead--wide reveal">Каждое поколение спорило с предыдущим. И каждое оставалось 911.</p>
+    </div>
+
+    <div class="rail" id="rail" tabindex="0" aria-label="Поколения 911, прокрутите вбок">
+      <article class="card reveal">
+        <span class="card__year">1963</span>
+        <h3>901</h3>
+        <p>Первый. 130 л.с., имя пришлось сменить из-за Peugeot — так родился 911.</p>
+      </article>
+      <article class="card reveal">
+        <span class="card__year">1974</span>
+        <h3>930 Turbo</h3>
+        <p>Первый турбо. 260 л.с., широкие арки и прозвище Widowmaker.</p>
+      </article>
+      <article class="card reveal">
+        <span class="card__year">1988</span>
+        <h3>964</h3>
+        <p>Первый полный привод Carrera 4. Подвеска, которая изменила всё.</p>
+      </article>
+      <article class="card reveal">
+        <span class="card__year">1993</span>
+        <h3>993</h3>
+        <p>Последний воздушник. Многие считают его лучшим силуэтом линейки.</p>
+      </article>
+      <article class="card reveal">
+        <span class="card__year">1997</span>
+        <h3>996</h3>
+        <p>Водяное охлаждение. Спорный на вид — и быстрее всех предыдущих.</p>
+      </article>
+      <article class="card reveal">
+        <span class="card__year">2004</span>
+        <h3>997</h3>
+        <p>Возврат к круглым фарам. Линейка, которую снова узнают издалека.</p>
+      </article>
+      <article class="card reveal">
+        <span class="card__year">2011</span>
+        <h3>991</h3>
+        <p>Алюминий, семь ступеней, электрический руль — и рекорд Нюрбургринга.</p>
+      </article>
+      <article class="card reveal">
+        <span class="card__year">2018</span>
+        <h3>992</h3>
+        <p>Текущее поколение. Шире, чем когда-либо, и снова с широкой кормой.</p>
+      </article>
+    </div>
+    <p class="rail-hint container" aria-hidden="true">→ листайте</p>
+  </section>
+
+  <!-- 06 final -->
+  <section class="final" id="final" data-view="final" data-index="06" data-title="Финал">
+    <div class="container final__inner">
+      <p class="sec-label reveal">05 — Финал</p>
+      <h2 class="final__title reveal">Ваш&nbsp;ход.</h2>
+      <p class="lead reveal">Трибьют собран вручную: геометрия, свет и анимация — код, а не готовые модели.</p>
+      <div class="final__actions reveal">
+        <a class="btn" data-magnetic href="https://www.porsche.com/international/models/911/" target="_blank" rel="noopener">
+          Официальный 911 <span>↗</span>
+        </a>
+        <a class="btn btn--ghost" href="#hero">Смотреть снова</a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="footer">
+  <div class="container footer__grid">
+    <div class="footer__col">
+      <span class="footer__brand">911</span>
+      <p>Неофициальный фанатский проект. Porsche и 911 — товарные знаки Porsche AG. Не связан с производителем.</p>
+    </div>
+    <div class="footer__col">
+      <span class="footer__cap">Технологии</span>
+      <p>Three.js · WebGL · процедурная геометрия · 0 внешних ассетов</p>
+    </div>
+    <div class="footer__col">
+      <span class="footer__cap">Код</span>
+      <p><a href="https://github.com/sitecraft-studio/porsche-911-3d" target="_blank" rel="noopener">github.com/sitecraft-studio/porsche-911-3d</a></p>
+    </div>
+  </div>
+</footer>
+
+<noscript><p class="noscript">Для 3D-сцены нужен JavaScript. Без него останется только текст — но он тоже рассказывает историю.</p></noscript>
+
+<script src="vendor/three.min.js"></script>
+<script src="assets/js/car.js"></script>
+<script src="assets/js/main.js"></script>
+</body>
+</html>
